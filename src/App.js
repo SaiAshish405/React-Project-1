@@ -1,9 +1,10 @@
-import FoodRecipes from "./Food Recipes/FoodRecipes";
+import Countries from "./Countries/Countries";
+
 
 function App() {
   return (
     <div className="App">
-      <FoodRecipes/>
+      <Countries/>
     </div>
   );
 }
