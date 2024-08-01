@@ -36,7 +36,6 @@ body {
     width: 300px;
     margin-top: 20px;
     transition: all ease 0.3s;
-    padding: 20px;
     text-align: center;
   }
   
@@ -53,7 +52,7 @@ body {
     border-radius: 8px;
     margin-bottom: 15px;
     max-width: 100%;
-    height: auto;
+    height:180px;
   }
   
   
