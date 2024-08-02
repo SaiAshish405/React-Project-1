@@ -1,124 +1,174 @@
 
-.wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #f0f0f0; 
-    min-height: 100vh; 
-    padding: 20px;
-}
-
-
-.search-box {
-    width: 50%;
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 1em;
-    box-shadow: 0px 0px 12px 2px rgba(219, 221, 223, 0.5); 
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
 }
 
 
 .md {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  background-image: url(""); 
+  background-position: center;
+  background-size: cover;
+  padding: 10px;
+}
+
+.search-box {
+  width: 80%; 
+  max-width: 600px;
+  padding: 10px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1em;
+  box-shadow: 0px 0px 12px 2px rgba(219, 221, 223, 0.5);
 }
 
 
 ol {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    padding: 0;
-    width: 100%;
-    list-style-type: none; 
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 0;
+  width: 100%;
 }
-
 
 .card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    transition: all ease 0.3s;
-    border-radius: 8px;
-    padding: 10px;
-    margin: 10px;
-    background-color: rgba(255, 255, 255, 0.8);
-    width: 230px;
-    cursor: pointer; 
-    box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid rgba(0, 0, 0, 0.1); 
+  transition: all ease 0.3s;
+  border-radius: 8px;
+  padding: 10px;
+  margin: 10px;
+  width: 230px;
+  box-sizing: border-box;
 }
 
+
 .card:hover {
-    transform: scale(1.05);
-    background-color: rgba(255, 255, 255, 0.9);
-    border: 2px solid #f2f4f5; 
-    box-shadow: 0px 0px 12px 2px rgba(92, 94, 95, 0.5); 
+  transform: scale(1.05);
+  background-color: rgba(255, 255, 255, 0.9); 
+  color: black;
+  border: 2px solid #f2f4f5;
+  box-shadow: 0px 0px 12px 2px rgba(92, 94, 95, 0.5);
 }
 
 .card img {
-    border-radius: 4px;
-    padding: 10px;
-    height: 100px;
+  border-radius: 4px;
+  padding: 10px;
+  height: 100px;
+  object-fit: cover; 
 }
 
+li {
+  font-size: 18px;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
 .selected-card {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    padding: 20px;
-    margin: 20px;
-    background-color: rgba(255, 255, 255, 0.9);
-    width: 80%;
-    max-width: 800px;
-    box-shadow: 0px 0px 12px 2px rgba(92, 94, 95, 0.5); 
-    position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: absolute; 
+  top: 62%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 90%; 
+  max-height: 60vh; 
+  overflow-y: auto; 
 }
 
+
+.selected-content {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap; 
+  overflow: hidden; 
+}
 
 .selected-card img {
-    height: 150px;
-    margin-right: 20px; 
+  width: 100px;
+  height: auto;
+  margin-right: 20px;
 }
-
 
 .selected-info {
-    display: flex;
-    flex-direction: column;
+  text-align: left;
+  max-width: 300px; 
 }
 
 
-.selected-info h2 {
-    margin: 0 0 10px 0;
+.back-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  color: #007BFF;
+}
+
+.back-button:hover {
+  text-decoration: underline;
 }
 
 
-.selected-info p {
-    margin: 5px 0;
+body.no-scroll {
+  overflow: hidden;
 }
 
 
 @media (max-width: 768px) {
-    .selected-card {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
+  .search-box {
+    width: 90%;
+  }
 
-    .selected-card img {
-        margin: 0 0 20px 0;
-        height: 120px;
-    }
+  .card {
+    width: 100%;
+  }
 
-    .search-box {
-        width: 80%;
-    }
+  .selected-card {
+    width: 95%;
+    top: 60%; 
+  }
+}
+
+@media (max-width: 600px) {
+  .search-box {
+    width: 100%;
+  }
+
+  .card {
+    width: 100%;
+    margin: 5px; 
+  }
+
+  .selected-card {
+    width: 100%;
+    top: 70%; 
+  }
+
+  .selected-content {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .selected-card img {
+    margin-right: 0;
+    margin-bottom: 15px;
+  }
 }
