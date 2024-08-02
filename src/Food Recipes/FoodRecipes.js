@@ -5,6 +5,7 @@ import "./FoodRecipes.css";
 const FoodRecipes = () => {
   const [recipes, setRecipes] = useState([]);
   const [recipeData, setRecipeData] = useState([]);
+  const [loading, setLoading] = useState(true);
   const RefData = useRef();
 
   useEffect(() => {
@@ -13,16 +14,17 @@ const FoodRecipes = () => {
   }, []);
 
   const DataFetch = async () => {
-    let res = await axios.get("https://dummyjson.com/recipes");
     try {
+      let res = await axios.get("https://dummyjson.com/recipes");
       if (res.status === 200) {
         console.log(res);
+        setLoading(false); 
         setRecipes(res.data.recipes);
         setRecipeData(res.data.recipes);
       }
     } catch (error) {
       console.log(error);
-    }
+    } 
   };
 
   const DataHandler = () => {
@@ -31,55 +33,59 @@ const FoodRecipes = () => {
       recipes.filter((eachData) =>
         eachData.name
           .toLowerCase()
-          .includes(RefData.current.value.toLowerCase())||eachData.cuisine.toLowerCase().includes(RefData.current.value.toLowerCase())
+          .includes(RefData.current.value.toLowerCase()) || 
+        eachData.cuisine.toLowerCase().includes(RefData.current.value.toLowerCase())
       )
     );
   };
 
   return (
     <>
-     <input
+      <input
         type="text"
         ref={RefData}
         onChange={DataHandler}
         className="search-box"
         placeholder="Search for a recipe..."
       />
-    <div className="md">
-     
-      {recipeData.map((recipe) => (
-        <div className="card" key={recipe.id}>
-          <h3>{recipe.name}</h3>
-          <h5>Cuisine: {recipe.cuisine}</h5>
-          <img src={recipe.image} alt={recipe.name} height="100px" />
-          <div className="Ingredients">
-            <details>
-              <summary>Ingredients</summary>
-              <ul>
-                {recipe.ingredients.map((ingredient, index) => (
-                  <li key={index}>
-                    <div>{ingredient}</div>
-                  </li>
-                ))}
-              </ul>
-            </details>
-          </div>
-          <div className="Instructions">
-            <details>
-              <summary>Instructions</summary>
-              <ol>
-                {recipe.instructions.map((instruction, index) => (
-                  <li key={index}>
-                    <div>{instruction}</div>
-                  </li>
-                ))}
-              </ol>
-            </details>
-          </div>
-          <h4>Rating: {recipe.rating}</h4>
-        </div>
-      ))}
-    </div>
+      <div className="md">
+        {loading ? (
+          <div className="loading">Loading...</div> 
+        ) : (
+          recipeData.map((recipe) => (
+            <div className="card" key={recipe.id}>
+              <h3>{recipe.name}</h3>
+              <h5>Cuisine: {recipe.cuisine}</h5>
+              <img src={recipe.image} alt={recipe.name} height="100px" />
+              <div className="Ingredients">
+                <details>
+                  <summary>Ingredients</summary>
+                  <ul>
+                    {recipe.ingredients.map((ingredient, index) => (
+                      <li key={index}>
+                        <div>{ingredient}</div>
+                      </li>
+                    ))}
+                  </ul>
+                </details>
+              </div>
+              <div className="Instructions">
+                <details>
+                  <summary>Instructions</summary>
+                  <ol>
+                    {recipe.instructions.map((instruction, index) => (
+                      <li key={index}>
+                        <div>{instruction}</div>
+                      </li>
+                    ))}
+                  </ol>
+                </details>
+              </div>
+              <h4>Rating: {recipe.rating}</h4>
+            </div>
+          ))
+        )}
+      </div>
     </>
   );
 };

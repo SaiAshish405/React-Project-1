@@ -6,6 +6,7 @@ function Countries() {
     const [countries, setCountries] = useState([]);
     const [data, setData] = useState([]);
     const [selectedCountry, setSelectedCountry] = useState(null);
+    const [loading, setLoading] = useState(true)
     const RefData = useRef();
 
     useEffect(() => {
@@ -17,6 +18,7 @@ function Countries() {
         try {
             let res = await axios.get("https://restcountries.com/v3.1/all");
             if (res.status === 200) {
+                setLoading(false)
                 setCountries(res.data);
                 setData(res.data);
             }
@@ -26,8 +28,8 @@ function Countries() {
     };
 
     const Handler = () => {
-        setData(countries.filter((eachCountry) => 
-            eachCountry.region.toLowerCase().includes(RefData.current.value.toLowerCase()) || 
+        setData(countries.filter((eachCountry) =>
+            eachCountry.region.toLowerCase().includes(RefData.current.value.toLowerCase()) ||
             eachCountry.name.common.toLowerCase().includes(RefData.current.value.toLowerCase())
         ));
     };
@@ -45,33 +47,33 @@ function Countries() {
         <div className="wrapper">
             <input type="text" ref={RefData} className="search-box" onChange={Handler} placeholder="Search for a country..." />
             <div className="md">
-                {!selectedCountry ? (
-                    <ol>
-                        {data.map((country) => (
-                            <li key={country.cca3}>
-                                <div className="card" onClick={() => handleCardClick(country)}>
-                                    <img src={country.flags.png} alt={`Flag of ${country.name.official}`} />
-                                    <span>{country.name.common}</span>
-                                </div>
-                            </li>
-                        ))}
-                    </ol>
-                ) : (
-                    <div className="selected-card">
-                        <button onClick={handleBackClick} className="back-button">Back to home</button>
-                        <div className="selected-content">
-                            <img src={selectedCountry.flags.png} alt={`Flag of ${selectedCountry.name.official}`} />
-                            <div className="selected-info">
-                                <h2>{selectedCountry.name.common}</h2>
-                                <p>Official Name: {selectedCountry.name.official}</p>
-                                <p>Capital: {selectedCountry.capital}</p>
-                                <p>Region: {selectedCountry.region}</p>
-                                <p>Subregion: {selectedCountry.subregion}</p>
-                                <p>Population: {selectedCountry.population}</p>
+                {loading ? (<h3>loading....</h3>) : (!selectedCountry ? (
+                <ol>
+                    {data.map((country) => (
+                        <li key={country.cca3}>
+                            <div className="card" onClick={() => handleCardClick(country)}>
+                                <img src={country.flags.png} alt={`Flag of ${country.name.official}`} />
+                                <span>{country.name.common}</span>
                             </div>
+                        </li>
+                    ))}
+                </ol>
+                ) : (
+                <div className="selected-card">
+                    <button onClick={handleBackClick} className="back-button">Back to home</button>
+                    <div className="selected-content">
+                        <img src={selectedCountry.flags.png} alt={`Flag of ${selectedCountry.name.official}`} />
+                        <div className="selected-info">
+                            <h2>{selectedCountry.name.common}</h2>
+                            <p>Official Name: {selectedCountry.name.official}</p>
+                            <p>Capital: {selectedCountry.capital}</p>
+                            <p>Region: {selectedCountry.region}</p>
+                            <p>Subregion: {selectedCountry.subregion}</p>
+                            <p>Population: {selectedCountry.population}</p>
                         </div>
                     </div>
-                )}
+                </div>
+                ))}
             </div>
         </div>
     );
