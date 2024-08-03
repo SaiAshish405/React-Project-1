@@ -1,13 +1,15 @@
-import { useEffect, useRef, useState } from "react";
+import {useEffect, useRef, useState } from "react";
 import axios from "axios";
 import "./FoodRecipes.css";
+
+
 
 const FoodRecipes = () => {
   const [recipes, setRecipes] = useState([]);
   const [recipeData, setRecipeData] = useState([]);
   const [loading, setLoading] = useState(true);
   const RefData = useRef();
-
+ 
   useEffect(() => {
     DataFetch();
     RefData.current.focus();
@@ -18,13 +20,13 @@ const FoodRecipes = () => {
       let res = await axios.get("https://dummyjson.com/recipes");
       if (res.status === 200) {
         console.log(res);
-        setLoading(false); 
+        setLoading(false);
         setRecipes(res.data.recipes);
         setRecipeData(res.data.recipes);
       }
     } catch (error) {
       console.log(error);
-    } 
+    }
   };
 
   const DataHandler = () => {
@@ -33,7 +35,7 @@ const FoodRecipes = () => {
       recipes.filter((eachData) =>
         eachData.name
           .toLowerCase()
-          .includes(RefData.current.value.toLowerCase()) || 
+          .includes(RefData.current.value.toLowerCase()) ||
         eachData.cuisine.toLowerCase().includes(RefData.current.value.toLowerCase())
       )
     );
@@ -50,7 +52,7 @@ const FoodRecipes = () => {
       />
       <div className="md">
         {loading ? (
-          <div className="loading">Loading...</div> 
+          <div className="loading">Loading...</div>
         ) : (
           recipeData.map((recipe) => (
             <div className="card" key={recipe.id}>
